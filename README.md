@@ -1,6 +1,6 @@
 # Prism Pipeline
 
-This is the official repository of the Prism Pipeline.
+This is a fork of the Prism Pipeline.
 
 Prism automates and simplifies the workflow of animation and VFX projects.
 
@@ -11,6 +11,20 @@ https://prism-pipeline.com/
 This repository contains the Prism core application and the officially available open source plugins.
 Additional features and plugins are available on the Prism website.
 
+## This fork
+
+This fork attempts to use Prism in a network and rez environment.  
+(We do not attempt to rezify prism itself).
+
+*This is not yet a rez recipe. Installation needs to be done manually.*
+
+To install, clone this repo into a rez package path, using the manual installation described below, and adapt the `package.py` file.
+
+To run:
+
+````commandline
+rez env prism -- prism
+````
 
 ## Getting Started
 

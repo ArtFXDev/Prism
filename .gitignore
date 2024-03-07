@@ -1,4 +1,6 @@
 *.pyc
-Prism/Python37/
+Prism/Python39/
 Prism/PythonLibs/
 Prism/Tools/
+.idea
+__pycache__

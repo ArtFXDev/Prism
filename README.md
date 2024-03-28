@@ -14,7 +14,7 @@ Additional features and plugins are available on the Prism website.
 ## This fork
 
 This fork attempts to use Prism in a network and rez environment.  
-(We do not attempt to rezify prism itself).
+We do not attempt to rezify prism itself and its dependencies.
 
 *This is not yet a rez recipe. Installation needs to be done manually.*
 
@@ -25,6 +25,46 @@ To run:
 ````commandline
 rez env prism -- prism
 ````
+
+### Rez caching
+
+Prism package is heavy and should be cached.
+In the rezconfig file, add a local **cache_packages_path**.
+
+Example: 
+`cache_packages_path = r"C:\rez\package_cache"` 
+
+### Default User config from template
+
+Upon launch, check of the user config:
+- as defined in `PRISM_USER_PREFS`
+- defaults to `~/Documents/Prism2`
+
+If it does not exist, the template user pref file is used as a default
+- as defined in `PRISM_DEFAULT_USER_PREFS`
+- default in `templates\Prism.json`
+
+This user config overrides the DCC startups by settings rez commands.
+Example:
+`"Houdini_path": "rez env houdini ssx_houdini -- houdini"`
+
+## Project startup
+
+We need server based project folders, and rez packages to configure the projects.
+
+The project config file `pipeline.json` should be copied into the future project location.
+Example: `D:\michaelhaussmann\PROJECTS\TESTPIPE\00_Pipeline\pipeline.json`
+
+The project package.py should contain:
+```
+env.PRISM_PROJECT_CONFIG_PATH.set(r"D:\michaelhaussmann\PROJECTS\TESTPIPE\00_Pipeline\pipeline.json")
+```
+
+On startup the user can **Browse Projects** and select the project folder.
+`D:\michaelhaussmann\PROJECTS\TESTPIPE`
+
+
+
 
 ## Getting Started
 

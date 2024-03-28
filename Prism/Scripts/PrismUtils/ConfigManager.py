@@ -185,84 +185,90 @@ class ConfigManager(object):
                 self.core.popup('Failed to create preferences folder: "%s"' % cfgDir)
                 return
 
-        uconfig = OrderedDict(
-            [
-                (
-                    "globals",
-                    OrderedDict(
-                        [
-                            ("current project", ""),
-                            ("showonstartup", True),
-                            ("check_import_versions", True),
-                            ("checkframerange", True),
-                            ("username", ""),
-                            ("autosave", True),
-                            ("send_error_reports", True),
-                            ("mediaPlayerPath", ""),
-                            ("mediaPlayerName", ""),
-                            ("checkForUpdates", 7),
-                            ("highdpi", False),
-                            ("debug_mode", False),
-                        ]
-                    ),
-                ),
-                (
-                    "nuke",
-                    OrderedDict(
-                        [
-                            ("usenukex", False),
-                        ]
-                    ),
-                ),
-                (
-                    "blender",
-                    OrderedDict(
-                        [
-                            ("autosaverender", False),
-                            ("autosaveperproject", False),
-                            ("autosavepath", ""),
-                        ]
-                    ),
-                ),
-                (
-                    "browser",
-                    OrderedDict(
-                        [
-                            ("closeafterload", True),
-                            ("closeafterloadsa", False),
-                            ("current", "Assets"),
-                            ("assetsVisible", True),
-                            ("shotsVisible", True),
-                            ("filesVisible", False),
-                            ("recentVisible", True),
-                            ("rendervisible", True),
-                            ("assetsOrder", 0),
-                            ("shotsOrder", 1),
-                            ("filesOrder", 2),
-                            ("recentOrder", 3),
-                            ("assetSorting", [1, 1]),
-                            ("shotSorting", [1, 1]),
-                            ("fileSorting", [1, 1]),
-                            ("autoplaypreview", False),
-                            ("showmaxassets", True),
-                            ("showmayaassets", True),
-                            ("showhouassets", True),
-                            ("shownukeassets", True),
-                            ("showblenderassets", True),
-                            ("showmaxshots", True),
-                            ("showmayashots", True),
-                            ("showhoushots", True),
-                            ("shownukeshots", True),
-                            ("showblendershots", True),
-                        ]
-                    ),
-                ),
-                ("localfiles", OrderedDict([])),
-                ("recent_projects", OrderedDict([])),
-            ]
-        )
+        # copy of default prefs if defined
+        defaultUserPref = os.environ.get("PRISM_DEFAULT_USER_PREFS")
+        if defaultUserPref and os.path.exists(defaultUserPref):
+            self.core.copyfile(defaultUserPref, self.core.userini)
 
-        self.setConfig(data=uconfig, configPath=self.core.userini)
+        else:
+            uconfig = OrderedDict(
+                [
+                    (
+                        "globals",
+                        OrderedDict(
+                            [
+                                ("current project", ""),
+                                ("showonstartup", True),
+                                ("check_import_versions", True),
+                                ("checkframerange", True),
+                                ("username", ""),
+                                ("autosave", True),
+                                ("send_error_reports", True),
+                                ("mediaPlayerPath", ""),
+                                ("mediaPlayerName", ""),
+                                ("checkForUpdates", 7),
+                                ("highdpi", False),
+                                ("debug_mode", False),
+                            ]
+                        ),
+                    ),
+                    (
+                        "nuke",
+                        OrderedDict(
+                            [
+                                ("usenukex", False),
+                            ]
+                        ),
+                    ),
+                    (
+                        "blender",
+                        OrderedDict(
+                            [
+                                ("autosaverender", False),
+                                ("autosaveperproject", False),
+                                ("autosavepath", ""),
+                            ]
+                        ),
+                    ),
+                    (
+                        "browser",
+                        OrderedDict(
+                            [
+                                ("closeafterload", True),
+                                ("closeafterloadsa", False),
+                                ("current", "Assets"),
+                                ("assetsVisible", True),
+                                ("shotsVisible", True),
+                                ("filesVisible", False),
+                                ("recentVisible", True),
+                                ("rendervisible", True),
+                                ("assetsOrder", 0),
+                                ("shotsOrder", 1),
+                                ("filesOrder", 2),
+                                ("recentOrder", 3),
+                                ("assetSorting", [1, 1]),
+                                ("shotSorting", [1, 1]),
+                                ("fileSorting", [1, 1]),
+                                ("autoplaypreview", False),
+                                ("showmaxassets", True),
+                                ("showmayaassets", True),
+                                ("showhouassets", True),
+                                ("shownukeassets", True),
+                                ("showblenderassets", True),
+                                ("showmaxshots", True),
+                                ("showmayashots", True),
+                                ("showhoushots", True),
+                                ("shownukeshots", True),
+                                ("showblendershots", True),
+                            ]
+                        ),
+                    ),
+                    ("localfiles", OrderedDict([])),
+                    ("recent_projects", OrderedDict([])),
+                ]
+            )
+
+            self.setConfig(data=uconfig, configPath=self.core.userini)
 
         if platform.system() in ["Linux", "Darwin"]:
             if os.path.exists(self.core.userini):

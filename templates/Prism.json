@@ -1,0 +1,73 @@
+{
+    "globals": {
+        "current project": "",
+        "showonstartup": true,
+        "check_import_versions": true,
+        "checkframerange": true,
+        "username": "",
+        "autosave": true,
+        "send_error_reports": true,
+        "mediaPlayerPath": "",
+        "mediaPlayerName": "",
+        "checkForUpdates": 7,
+        "highdpi": false,
+        "debug_mode": false,
+        "username_abbreviation": ""
+    },
+    "dccoverrides": {
+        "Houdini_path": "rez env houdini ssx_houdini -- houdini",
+        "Maya_path": "rez env maya ssx_maya -- maya",
+        "Nuke_path": "rez env nuke -- nuke",
+        "Houdini_override": true,
+        "Maya_override": true,
+        "Nuke_override": true,
+        "PureRef_override": false,
+        "PureRef_path": ""
+    },
+    "browser": {
+        "closeafterload": true,
+        "closeafterloadsa": false,
+        "current": "Assets",
+        "assetsVisible": true,
+        "shotsVisible": true,
+        "filesVisible": false,
+        "recentVisible": true,
+        "rendervisible": true,
+        "assetsOrder": 0,
+        "shotsOrder": 1,
+        "filesOrder": 2,
+        "recentOrder": 3,
+        "assetSorting": [
+            1,
+            1
+        ],
+        "shotSorting": [
+            1,
+            1
+        ],
+        "fileSorting": [
+            1,
+            1
+        ],
+        "autoplaypreview": false,
+        "showmaxassets": true,
+        "showmayaassets": true,
+        "showhouassets": true,
+        "shownukeassets": true,
+        "showblenderassets": true,
+        "showmaxshots": true,
+        "showmayashots": true,
+        "showhoushots": true,
+        "shownukeshots": true,
+        "showblendershots": true
+    },
+    "localfiles": {},
+    "recent_projects": {},
+    "environmentVariables": {},
+    "plugins": {
+        "inactive": []
+    },
+    "pureref": {
+        "initialized": true
+    }
+}

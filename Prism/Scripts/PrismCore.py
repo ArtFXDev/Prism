@@ -51,6 +51,8 @@ import atexit
 from datetime import datetime
 from multiprocessing.connection import Listener, Client
 
+startEnv = os.environ.copy()
+
 # check if python 2 or python 3 is used
 if sys.version[0] == "3":
     pVersion = 3
@@ -207,6 +209,7 @@ class PrismCore:
                 self.splashScreen.setVersion(self.version)
                 self.splashScreen.setStatus("loading core...")
 
+            self.startEnv = startEnv
             self.uiAvailable = False if "noUI" in self.prismArgs else True
 
             self.stateData = []
@@ -2515,14 +2518,26 @@ License: GNU LGPL-3.0-or-later<br>
 
             args.append(self.core.fixPath(filepath))
             logger.debug("starting DCC with args: %s" % args)
-            try:
-                args = ' '.join(args)  # to make the rez command work
-                logger.debug(f"Starting: {args}")
-                subprocess.Popen(args)
-            except Exception as e:
-                logger.debug(f"[openFile] Exception: {e}")
-                msg = "Could not execute file:\n\n%s\n\nUsed arguments: %s\n\n%s" % (traceback.format_exc(), args, e)
-                self.core.popup(msg)
+
+            if args[0].count("rez"):  # if we launch a rez command
+                try:
+                    from PrismUtils import prismRez
+                    command = prismRez.getRezCommand(args)
+                    logger.info(f"Starting: {command}")
+                    subprocess.Popen(command)
+                except Exception as e:
+                    logger.debug(f"[openFile] Exception: {e}")
+                    msg = "Could not execute file:\n\n%s\n\nUsed arguments: %s\n\n%s" % (traceback.format_exc(), args, e)
+                    self.core.popup(msg)
+            else:
+                try:
+                    subprocess.Popen(args, env=self.startEnv)
+                except:
+                    if os.path.isfile(args[0]):
+                        msg = "Could not execute file:\n\n%s\n\nUsed arguments: %s" % (traceback.format_exc(), args)
+                    else:
+                        msg = "Executable doesn't exist:\n\n%s\n\nCheck your executable override in the Prism User Settings." % args[0]
+                    self.core.popup(msg)
 
             fileStarted = True
 

@@ -48,6 +48,15 @@ This user config overrides the DCC startups by settings rez commands.
 Example:
 `"Houdini_path": "rez env houdini ssx_houdini -- houdini"`
 
+## Launching DCC using rez
+
+If the config (Prism Settings > DCC Apss) contains a rez command for a DCC launch (as configured in PRISM_USER_PREFS / PRISM_DEFAULT_USER_PREFS),
+then the current rez request is added to the rez command, to inherit the rez environment.
+This is useful to transmit the project package from prism to the DCC.
+(the "prism" package itself is removed from the rez command).
+
+If the config (Prism Settings > DCC Apss) does not contain a rez command, the default Prism behaviour occurs.
+
 ## Project startup
 
 We need server based project folders, and rez packages to configure the projects.
